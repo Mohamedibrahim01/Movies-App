@@ -12,35 +12,31 @@ export type Movie = {
   runtime?: string;
   plot: string;
 };
-
 export default function MovieDetails() {
   const { state } = useLocation();
   const movie: Movie | undefined = state?.movie;
-  if (!movie) return null; // ✅ يوقف تنفيذ الكومبوننت لو مفيش فيلم
+
+  if (!movie) return null; // ✅ نوقف تنفيذ الكومبوننت لو مفيش فيلم
+
   const [userRating, setUserRating] = useState<number | null>(null);
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
 
   useEffect(() => {
+    // ⭐ استرجاع التقييمات
     const ratings = JSON.parse(localStorage.getItem("ratings") || "{}");
-    if (movie?.id && ratings[movie.id]) {
+    if (ratings[movie.id]) {
       setUserRating(ratings[movie.id]);
     }
 
+    // ⭐ التحقق من وجود الفيلم في الووتش ليست
     const existing = JSON.parse(localStorage.getItem("watchlist") || "[]");
-    const isAlreadyAdded = existing.some((m: Movie) => m.id === movie?.id);
+    const isAlreadyAdded = existing.some((m: Movie) => m.id === movie.id);
     setAddedToWatchlist(isAlreadyAdded);
-  }, [movie?.id]);
-
-  useEffect(() => {
-    const existing = JSON.parse(localStorage.getItem("watchlist") || "[]");
-    const isAlreadyAdded = existing.some((m: Movie) => m.id === movie?.id);
-    setAddedToWatchlist(isAlreadyAdded);
-  }, [movie?.id]);
+  }, [movie.id]);
 
   const handleAddToWatchlist = () => {
     const existing = JSON.parse(localStorage.getItem("watchlist") || "[]");
-
     const isAlreadyAdded = existing.some((m: Movie) => m.id === movie.id);
 
     if (isAlreadyAdded) {
