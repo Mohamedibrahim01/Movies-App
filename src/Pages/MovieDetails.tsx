@@ -16,6 +16,7 @@ export type Movie = {
 export default function MovieDetails() {
   const { state } = useLocation();
   const movie: Movie | undefined = state?.movie;
+  if (!movie) return null; // ✅ يوقف تنفيذ الكومبوننت لو مفيش فيلم
   const [userRating, setUserRating] = useState<number | null>(null);
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
