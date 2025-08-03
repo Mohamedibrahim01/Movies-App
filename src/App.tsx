@@ -7,7 +7,6 @@ import MovieDetails from "./Pages/MovieDetails";
 import Navbar from "./Components/Navbar";
 import TopRated from "./Pages/TopRated";
 import { setMovies as storeMovies } from "./Utils/MovieList"; // Store خارجي
-import type { Movie } from "./Pages/MovieDetails"; // أو من مكان تاني لو مختلف
 import MostWatched from "./Pages/MostWatched";
 import WatchList from "./Pages/WatchList";
 import SearchResults from "./Pages/SearchResults";
